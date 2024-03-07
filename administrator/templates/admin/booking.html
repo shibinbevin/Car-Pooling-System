@@ -1,0 +1,47 @@
+{% extends 'admin/shared/base.html' %}
+
+{% block main %}
+    <h1>User Bookings</h1>
+    <hr>
+    
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Seat</th>
+                        <th>Total Kilometer</th>
+                        <th>Amount</th>
+                        <th>Booking Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ data.source }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.seat }}</td>
+                        <td>{{ data.total_km }}</td>
+                        <td>₹ {{ data.amount }} /-</td>
+                        <td>{{ data.created_at }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'admin_ride_details' id=data.ride.id %}" class="btn btn-info btn-sm"><i class="bi bi-eye-fill"></i> Ride Details</a>
+                                <a href="{% url 'admin_user_details' id=data.user.id %}" class="btn btn-success btn-sm"><i class="bi bi-person-fill"></i> User Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

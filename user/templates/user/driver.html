@@ -1,0 +1,35 @@
+{% extends 'user/shared/base.html' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-8 offset-2 my-5  p-5 bg-light shadow rounded">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <td>:</td>
+                    <td>{{ driver.user.first_name }} {{ driver.user.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>:</td>
+                    <td>{{ driver.user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>:</td>
+                    <td>{{ driver.user.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>:</td>
+                    <td>
+                        {{ driver.state }} <br>
+                        {{ driver.city }} <br>
+                        {{ driver.zip_code }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

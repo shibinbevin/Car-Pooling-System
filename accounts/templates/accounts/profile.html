@@ -1,0 +1,21 @@
+{% extends 'accounts/shared/base.html' %} 
+
+{% load crispy_forms_tags %}
+
+{% block main %}
+<div class="row">
+  <div class="col-sm-6 offset-3 bg-light shadow rounded my-5 p-5 text-center">
+    <h2>User Profile</h2>
+    <hr />
+    <form class="row g-3 needs-validation" enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      {{ form1 | crispy }}
+      {{ form2 | crispy }}
+
+      <div class="col-12 text-end">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock main %}

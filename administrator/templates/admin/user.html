@@ -1,0 +1,68 @@
+{% extends 'admin/shared/base.html' %}
+
+{% block main %}
+    <div class="row my-5 p-5 bg-light shadow rounded">
+        <div class="col-12">
+            <h2>User Details</h2>
+            <hr>
+            <table class="table">
+                <tr>
+                    <th>Full Name</th>
+                    <td>:</td>
+                    <td>{{ user.user.first_name }} {{ user.user.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>:</td>
+                    <td>{{ user.user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>:</td>
+                    <td>{{ user.user.phone }}</td>
+                </tr>
+                <tr>
+                    <th>ID Type</th>
+                    <td>:</td>
+                    <td>
+                        
+                        {% if user.id_type == 0 %}
+                        Aadhar
+                        {% elif user.id_type == 1 %}
+                        Election Id
+                        {% elif user.id_type == 2 %}
+                        Pan Card
+                        {% else %}
+                        Licence
+                        {% endif %}
+                            
+                    </td>
+                </tr>
+                <tr>
+                    <th>ID Numner</th>
+                    <td>:</td>
+                    <td>{{ user.id_number }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>:</td>
+                    <td>{{ user.state }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>:</td>
+                    <td>{{ user.city }}</td>
+                </tr>
+                <tr>
+                    <th>Pin Code</th>
+                    <td>:</td>
+                    <td>{{ user.zip_code }}</td>
+                </tr>
+            </table>
+            <div class="col-12 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-secondary" href="{% url 'admin_user_booking' %}">Back</a>    
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+    

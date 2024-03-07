@@ -1,0 +1,33 @@
+{% extends 'accounts/shared/base.html' %} 
+
+{% load crispy_forms_tags %}
+
+{% block main %}
+<div class="row">
+  <div class="col-sm-6 offset-3 bg-light shadow rounded p-3 text-center">
+    <div class="row">
+      <div class="col-6 d-grid mx-auto">
+        <a href="{% url 'accounts_signup' %}" class="btn btn-outline-dark {% if form == 'user' %}active{% endif %}">User</a>
+      </div>
+      <div class="col-6 d-grid mx-auto">
+        <a href="{% url 'accounts_pooler_signup' %}" class="btn btn-outline-dark {% if form == 'pooler' %}active{% endif %}">Pooler</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6 offset-3 bg-light shadow rounded my-5 p-5 text-center">
+    <h2>Sign-UP</h2>
+    <hr />
+    <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form1 | crispy }}
+      {{ form2 | crispy }}
+
+      <div class="col-12 text-end">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock main %}

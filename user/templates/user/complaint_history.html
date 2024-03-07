@@ -1,0 +1,52 @@
+{% extends 'user/shared/base.html' %}
+
+{% block main %}
+    <div class="row my-5 p-5 bg-light shadow rounded">
+        <div class="col-12">
+            <h2>Complaint History</h2>
+            <hr>
+            
+            {% if complaints %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Complaint</th>
+                            <th>Date Created</th>
+                            <th>Resolved Date</th>
+                            <th>Against To</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for complaint in complaints %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ complaint.complaint_text }}</td>
+                                <td>{{ complaint.complaint_date }}</td>
+                                <td>{{ complaint.resolved_date }}</td>
+                                <td>{{ complaint.pooler }}</td>
+                                <td>
+                                    
+                                    {% if complaint.resolved %}
+                                        <span class="text-success">Completd</span>
+                                    {% else %}
+                                        <span class="text-danger">Not Completed</span>
+                                    {% endif %}
+                                        
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                            
+                    </tbody>
+                </table>
+            {% else %}
+                No Data Found....
+            {% endif %}
+                
+        </div>
+    </div>
+{% endblock main %}
+    

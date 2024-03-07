@@ -1,0 +1,60 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-dark px-5 py-3" style="background-color: #363636;">
+    <a class="navbar-brand" href="#">
+        <!-- <img src="{% static 'images/logo.png' %}" width="40" alt=""><span class="my-3" style="font-weight: bold;">CARPOOL</span> -->
+        <span class="my-3" style="font-weight: bold;">C A R P O O L</span>
+    </a>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'user_index' %}" aria-current="page">Home</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_upcoming_journey' %}">Upcoming Journey</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_history' %}">History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_user_complaints' %}">Complaints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_user_complaints_history' %}">Complaint History</a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+            
+            {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hello, {{ user }}
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'accounts_profile' %}">Your Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts_change_password' %}">Change Password</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'accounts_logout_action' %}" aria-current="page"><span class="btn btn-outline-danger btn-sm">Logout <i class="bi bi-box-arrow-in-right"></i></span></a>
+                    </li>
+                    </ul>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'accounts_signin' %}" aria-current="page"><span class="btn btn-outline-success">SignIn</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts_signup' %}"><span class="btn btn-outline-info">SignUp</span></a>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+</nav>
+
+
+
+

@@ -1,0 +1,73 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+<h1 class="text-white my-4">Make Trip</h1>
+<hr>
+<div class="row">
+    <div class="col-10 offset-1 p-5 bg-light shadow rounded">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col-6 my-2">
+                <label for="from">From</label>
+                <input type="text" name="from" id="from" class="form-control">
+            </div>
+            <div class="col-6 my-2">
+                <label for="to">To</label>
+                <input type="text" name="to" id="to" class="form-control">
+            </div>
+            <div class="col-6 my-2">
+                <label for="departure_time">Departure Time</label>
+                <input type="datetime-local" name="departure_time" id="departure_time" class="form-control">
+            </div>
+            <div class="col-6 my-2">
+                <label for="departure_time">Estimated Reaching Time</label>
+                <input type="datetime-local" name="estimated_time" id="estimated_time" class="form-control">
+            </div>
+            <div class="col-6 my-2">
+                <label for="amount">Amount per kilometer</label>
+                <input type="number" name="amount" id="amount" class="form-control">
+            </div>
+            <div class="col-6 my-2">
+                <label for="departure_time">Gender Preference</label>
+                <select name="preference" id="preference" class="form-control">
+                    <option value="--">---------</option>
+                    <option value="0">Male Only</option>
+                    <option value="1">Female Only</option>
+                    <option value="2">No Preference</option>
+                </select>
+            </div>
+            <div class="col-6 my-2">
+                <label for="amount">Description</label>
+                <textarea name="desc" id="desc" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="col-6 my-2">
+                <label for="amount">Way Points</label>
+                <div id="waypnt">
+                    <ul class="list-group list-group-horizontal" id="p0">
+                        <li class="list-group-item"><input type="text" name="point0" id="point0" class="form-control points" placeholder="Enter Place"></li>
+                        <li class="list-group-item"><input type="number" name="km0" style="width: 70px;" id="km0" class="form-control kilometers" placeholder="Km"></li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal" id="p1">
+                        <li class="list-group-item"><input type="text" name="point1" id="point1" class="form-control points" placeholder="Enter Place"></li>
+                        <li class="list-group-item"><input type="number" name="km1" style="width: 70px;" id="km1" class="form-control kilometers" placeholder="Km"></li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal" id="p2">
+                        <li class="list-group-item"><input type="text" name="point2" id="point2" class="form-control points" placeholder="Enter Place"></li>
+                        <li class="list-group-item"><input type="number" name="km2" style="width: 70px;" id="km2" class="form-control kilometers" placeholder="Km"></li>
+                    </ul>
+                </div>
+                <div class="d-grid gap-2">
+                    <button id="addbtn" class="btn btn-success my-2"><i class="bi bi-plus-circle"></i></button>
+                </div>
+               
+            </div>
+            <div class="col-6 my-2"></div>
+            <div class="col-6 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'pooler_index' %}" class="btn btn-secondary">Back</a>
+                <button class="btn btn-primary" id="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+    

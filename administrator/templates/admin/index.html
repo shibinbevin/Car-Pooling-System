@@ -1,0 +1,94 @@
+{% extends 'admin/shared/base.html' %}
+
+
+{% block main %}
+<div class="row min-vh-80">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">weekend</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Rides</p>
+            <h4 class="mb-0">{{ ride.all }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            On-Going : <span class="text-success text-sm font-weight-bolder">{{ ride.active }}</span>
+            Completed : <span class="text-danger text-sm font-weight-bolder">{{ ride.inactive }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">weekend</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Active Pooler</p>
+            <h4 class="mb-0">{{ pooler.all }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <p class="mb-0">
+              Active : <span class="text-success text-sm font-weight-bolder">{{ pooler.active }}</span>
+              In-Active : <span class="text-danger text-sm font-weight-bolder">{{ pooler.inactive }}</span>
+             </p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">weekend</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Total Active Users</p>
+            <h4 class="mb-0">{{ user.all }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <p class="mb-0">
+              Active : <span class="text-success text-sm font-weight-bolder">{{ user.active }}</span>
+              In-Active : <span class="text-danger text-sm font-weight-bolder">{{ user.inactive }}</span>
+             </p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-header p-3 pt-2">
+          <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <i class="material-icons opacity-10">weekend</i>
+          </div>
+          <div class="text-end pt-1">
+            <p class="text-sm mb-0 text-capitalize">Complaints</p>
+            <h4 class="mb-0">{{ complaint.all }}</h4>
+          </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+          <p class="mb-0">
+            <p class="mb-0">
+              Resolved : <span class="text-success text-sm font-weight-bolder">{{ complaint.solved }}</span>
+              Un-Solved : <span class="text-danger text-sm font-weight-bolder">{{ complaint.unsolved }}</span>
+             </p>
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock main %}
+    

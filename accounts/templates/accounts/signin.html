@@ -1,0 +1,33 @@
+{% extends 'accounts/shared/base.html' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-4 offset-4 bg-light shadow rounded my-5 p-5 text-center">
+            <h2>Sign-IN</h2>
+            <hr>
+            <form class="row g-3 align-items-center" method="post">
+              {% csrf_token %}
+                <div class="col-12">
+                  <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-text"><i class="bi bi-envelope"></i></div>
+                    <input type="text" class="form-control" name="username" id="inlineFormInputGroupUsername" placeholder="Username">
+                  </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="visually-hidden" for="inlineFormInputGroupUsername">Password</label>
+                    <div class="input-group">
+                      <div class="input-group-text"><i class="bi bi-eye"></i></div>
+                      <input type="password" class="form-control" name="password" id="inlineFormInputGroupUsername" placeholder="Password">
+                    </div>
+                </div>
+              
+                <div class="col-12 d-grid gap-1">
+                  <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock main %}
+    

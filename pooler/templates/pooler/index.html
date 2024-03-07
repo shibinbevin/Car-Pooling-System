@@ -1,0 +1,67 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+    <h1 class="text-white">Make Trip</h1>
+    <hr>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'pooler_make_trip' %}" class="btn btn-success">Create New + </a>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Departure Time</th>
+                        <th>Estimated Time</th>
+                        <th>Gender Preference</th>
+                        <th>Description</th>
+                        <th>Amount/km</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ data.origin }}</td>
+                        <td>{{ data.destination }}</td>
+                        <td>{{ data.departure_time }}</td>
+                        <td>{{ data.estimated_reaching_time }}</td>
+                        <td>
+                            
+                            {% if data.gender_preference == 0 %}
+                                Male Only
+                            {% elif data.gender_preference == 1 %}
+                                Female Only
+                            {% else %}
+                                No Preference
+                            {% endif %}
+                                
+                        </td>
+                        <td>{{ data.description }}</td>
+                        <td>₹ {{ data.price }} /-</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'pooler_view_route' id=data.id %}?next=index" class="btn btn-info btn-sm"><i class="bi bi-eye-fill"></i></a>
+                                {% if data.status %}
+                                    <a href="{% url 'pooler_ride_mark_as_complete' id=data.id %}" class="btn btn-success btn-sm"><i class="bi bi-check-all"></i></a>
+                                {% else %}
+                                    <a href="{% url 'pooler_ride_status' id=data.id %}" class="btn btn-success btn-sm"><i class="bi bi-check"></i></a>
+                                    <a href="{% url 'pooler_delete_ride' id=data.id %}" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

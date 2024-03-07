@@ -1,0 +1,187 @@
+{% extends 'user/shared/base.html' %}
+{% load static %}
+{% block main %}
+
+<style>
+
+    img{
+        position: relative;
+        /* margin: 100; */
+        /* transform: rotate(90deg); */
+        z-index: 0;
+        
+    }
+    .seat{
+        background-color: rgb(247, 208, 162);
+        z-index: 2;
+        position: absolute;
+        width: 80px;
+        opacity: .7;
+        border-radius: 15px;
+        height: 50px;
+    }
+    #seat1{
+        top: 331px;
+        left: 633px;
+    }
+    #seat2{
+        top: 260px;
+        left: 725px;
+    }
+    #seat3{
+        top: 327px;
+        left: 725px;
+    }
+    .active1{
+        background-color: rgb(0, 255, 0);
+        opacity: 0.7;
+    }
+    .disabled{
+        background-color: gray;
+        opacity: 0.7;
+    }
+</style>
+
+
+    <h1 class="text-white">Index</h1>
+    <hr>
+    <div class="row p-5 bg-light shadow rounded">
+        <div class="col-6 offset-3">
+            <img src="/static/images/car new.png" width="500" alt="">
+            <div class="all-seat">        
+                <div id="seat1" class="seat {% if 's1' in seats %}disabled{% endif %}" data="s1"></div>
+                <div id="seat2" class="seat {% if 's2' in seats %}disabled{% endif %}" data="s2"></div>
+                <div id="seat3" class="seat {% if 's3' in seats %}disabled{% endif %}" data="s3"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="col-4">
+            <h3>Ride Details</h3>
+            <hr>
+            <table class="table">
+                <tr>
+                    <th>From</th>
+                    <td>:</td>
+                    <td>{{ from }}</td>
+                </tr>
+                <tr>
+                    <th>To</th>
+                    <td>:</td>
+                    <td>{{ to }}</td>
+                </tr>
+                <tr>
+                    <th>Booked Seats</th>
+                    <td>:</td>
+                    <td>
+                        <input type="hidden" name="seats" id="seats">
+                        <span id="no_of_seats">0</span><span id="sel_seat"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Total Kilometeres</th>
+                    <td>:</td>
+                    <td><span id="tk">{{ total_distance }}</span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-4">
+            <div id="pmt">
+                <h3>Payment Details</h3>
+                <hr>
+                <table class="table">
+                    <tr>
+                        <th>Amout / Km</th>
+                        <td>:</td>
+                        <td>{{ price }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>:</td>
+                        <td>{{ amt }}</td>
+                    </tr>
+                    <tr>
+                        <th>cgst</th>
+                        <td>:</td>
+                        <td>{{ cgst }}</td>
+                    </tr>
+                    <tr>
+                        <th>sgst</th>
+                        <td>:</td>
+                        <td>{{ sgst }}</td>
+                    </tr>
+                    <tr>
+                        
+                        <th>Grand Total</th>
+                        <td>:</td>
+                        <td>
+                            <input type="hidden" name="gt" id="gt" value="{{ total }}">
+                            <span id="gtd">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="col-12 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                                {% csrf_token %}
+                                <button class="btn btn-success" id="btnBook">Book Now</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+
+        $(function(){
+            $('.seat').click(function(){
+                let ns = parseFloat($("#no_of_seats").text());
+                let gt = parseFloat($('#gt').val());
+                if($(this).hasClass('active1')){
+                    $(this).removeClass('active1');
+                    ns -= 1
+                }else{
+                    $(this).addClass('active1');
+                    ns += 1
+                }
+                if(!$(this).hasClass('disabled')){
+                    $("#no_of_seats").text(ns);
+                    if(ns > 0) {$('#pmt').show();}
+                    $('#gtd').text(ns*gt);
+                    seat = '';
+                    $('.active1').each(function(i, obj){
+                        seat += $(this).attr('data')+",";
+                    });
+                    $('#sel_seat').text(' - ('+seat+')');
+                    $('#seats').val(seat)
+                }
+            });
+
+            $('#btnBook').click(function(){
+                var pathname = window.location.pathname;
+                pathname = pathname.split('/')
+                console.log(pathname)
+                data = {
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                    'seats': $('#seats').val(),
+                    'total': $('#gtd').text(),
+                    'total_kilometer': $('#tk').text()
+                }
+                $.post(`/booking/${pathname[2]}/${pathname[3]}/${pathname[4]}`, data, function(res){
+                    if(res.success){
+                        window.alert('successfully booked trip');
+                        window.location.href='/'
+                    }
+                })
+            })
+
+        });
+
+    </script>
+{% endblock main %}
+    

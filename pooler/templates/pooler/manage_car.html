@@ -1,0 +1,84 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1 class="text-white">Manage Car</h1>
+            <hr>
+            <div class="row">
+                <div class="col-sm-7">
+                    <table class="table text-white">
+                        <tbody>
+                            <tr>
+                                <th>Registration Number</th>
+                                <td>:</td>
+                                <td>{{ car.reg_no }}</td>
+                            </tr>
+                            <tr>
+                                <th>Passenger Capacity</th>
+                                <td>:</td>
+                                <td>{{ car.capacity }} <i class="bi bi-person"></i></td>
+                            </tr>
+                            <tr>
+                                <th>Luggage Capacity</th>
+                                <td>:</td>
+                                <td>{{ car.luggage_capacity }} <i class="bi bi-briefcase"></i></td>
+                            </tr>
+                            <tr>
+                                <th>AC Status</th>
+                                <td>:</td>
+                                <td>
+                                    
+                                    {% if car.air_condition %}
+                                        <span class="badge bg-success rounded-pill">Available</span>
+                                    {% else %}
+                                        <span class="badge bg-danger rounded-pill">Not Available</span>
+                                    {% endif %}
+                                    <i class="bi bi-snow2"></i> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Category</th>
+                                <td>:</td>
+                                <td>{{ car.category }}</td>
+                            </tr>
+                            <tr>
+                                <th>Visibility Status</th>
+                                <td>:</td>
+                                <td>
+                                    {% if car.status %}
+                                        <span class="badge bg-primary">Visible <i class="bi bi-eye"></i></span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Not Visible <i class="bi bi-eye-slash"></i></span>
+                                    {% endif %}
+                                    <a href="{% url 'pooler_change_visibility' id=car.id %}" class="btn btn-info btn-sm">Change</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Created At</th>
+                                <td>:</td>
+                                <td>{{ car.created_at }}</td>
+                            </tr>
+                
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-5 p-4 text-center">
+                    <img src="/media/{{ car.image }}" class="img-fluid img-thumbnail" width="100%" alt="{{ car.reg_no }}">
+                    <p class="text-white mt-2">
+                        <strong><em>"{{ car.description }}"</em></strong>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <a href="{% url 'pooler_edit_car' id=car.id %}" class="btn btn-warning">Edit <i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'pooler_remove_car' id=car.id %}" class="btn btn-danger">Delete <i class="bi bi-trash3"></i></a>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+    

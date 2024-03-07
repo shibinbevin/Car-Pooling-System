@@ -1,0 +1,115 @@
+{% extends 'user/shared/base.html' %}
+
+{% block main %}
+    <h1 class="text-white">Search Ride</h1>
+    <hr>
+    <div class="row">
+        <div class="col-10 offset-1 p-5 bg-light shadow rounded">
+            <form action="" method="get">
+                <div class="row">
+                    
+                    <div class="col-4 my-2">
+                        <label for="from">From</label>
+                        <select name="from" id="from" class="form-control">
+                            <option value="--">-------</option>
+                            
+                            {% for p in places %}
+                                <option value="{{ p.point }}" {% if p.point == from %}selected{% endif %}>{{ p.point }}</option>
+                            {% endfor %}
+                                
+                        </select>
+                    </div>
+                    <div class="col-4 my-2">
+                        <label for="to">To</label>
+                        <select name="to" id="to" class="form-control">
+                            <option value="--">-------</option>
+                                
+                            {% for p in places %}
+                                <option value="{{ p.point }}" {% if p.point == to %}selected{% endif %}>{{ p.point }}</option>
+                            {% endfor %}
+                                
+                        </select>
+                    </div>
+                    <div class="col-4 my-2">
+                        <label for="departure_time">Departure Time</label>
+                        <input type="datetime-local" name="departure_time" id="departure_time" class="form-control">
+                    </div>
+                    <div class="col-6 my-2"></div>
+
+                    <div class="col-6 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary" id="submit">Find</button>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    
+    
+    
+
+        {% if rides %}
+
+        
+        <div class="row">
+            <div class="col-12  p-5 bg-light shadow rounded">
+                {% for ride in rides %}
+                    <div class="card my-3" style="width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <img class="card-img" src="/media/{{ ride.car.image }}" alt="Suresh Dasari Card">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>From : {{ from }}</h5>
+                                            <p>Departure : {{ride.departure_time}}</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>To : {{ to }}</h5>
+                                            <p>Estimated : {{ride.estimated_reaching_time}}</p>
+                                        </div>
+                                        <hr>
+                                        <div class="col-12">
+                                            <code>Routes: <a href="{% url 'user_view_route' id=ride.id %}" target="_blank">View Routes</a></code><br>
+                                            <code>Diver : <a href="{% url 'user_driver_details' id=ride.car.owner.user.id %}" target="_blank">{{ ride.car.owner.user }}</a></code><br>
+                                            <span>Gender Preference : 
+                                                
+                                                {% if ride.gender_preference == 0 %}
+                                                    Male Only
+                                                {% elif ride.gender_preference == 1 %}
+                                                    Female Only
+                                                {% else %}
+                                                    No Preference
+                                                {% endif %}
+                                                    
+                                            </span><br>
+                                            <h2>{{ ride.price }} / km</h2>
+                                            <p>Description : {{ ride.description }}</p>
+                                        </div>
+                                        <div class="col-12 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a class="btn btn-success" href="{% url 'user_book_now' id=ride.id frm=from to=to %}">Book Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>    
+        </div>
+
+        {% endif %}
+
+        
+        {% if is_search %}
+            <h3 class="text-center text-white">Ride not found...</h3>
+        {% endif %}
+            
+
+        
+        
+    
+{% endblock main %}
+    

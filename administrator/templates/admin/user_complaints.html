@@ -1,0 +1,57 @@
+{% extends 'admin/shared/base.html' %}
+
+
+{% block main %}
+
+<div class="row min-vh-80">
+    <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+      <h3>User Complaints</h3>
+      <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Pooler</th>
+                <th>Complaint</th>
+                <th>Complaint Date</th>
+                <th>Resolev Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for data in datas %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ data.user }}</td>
+                    <td>{{ data.pooler }}</td>
+                    <td style="white-space: pre-line;">{{ data.complaint_text }}</td>
+                    <td>{{ data.complaint_date }}</td>
+                    <td>
+                        
+                        {% if data.resolved_date %}
+                            {{ data.resolved_date }}
+                        {% else %}
+                            Not Resolved yet.
+                        {% endif %}
+                            
+                    </td>
+                    <td>
+                        
+                        {% if data.resolved %}
+                            <a href="{% url 'admin_delete_complaints' id=data.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% else %}
+                            <a href="{% url 'admin_mark_as_complete' id=data.id %}" class="btn btn-success btn-sm">Resolved</a>
+                        {% endif %}
+                            
+                    </td>
+
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+      </table>
+    </div>
+</div>
+{% endblock main %}
+    

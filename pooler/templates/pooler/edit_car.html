@@ -1,0 +1,16 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+        <div class="row">
+            <div class="col-sm-6 offset-3 my-5 p-4 bg-light text-center shadow rounded">
+                <h1>EDIT CAR</h1>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="form-group d-grid gap-3 my-3">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock main %}

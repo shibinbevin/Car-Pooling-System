@@ -1,0 +1,53 @@
+{% extends 'admin/shared/base.html' %}
+
+
+{% block main %}
+
+
+<div class="row min-vh-80">
+    <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4" style="overflow: scroll;">
+      <h3>Manage Pooler</h3>
+      <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email ID</th>
+                <th>Address</th>
+                <th>Last Login</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for p in poolers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ p.user.first_name }} {{ p.user.last_name }}</td>
+                    <td>{{ p.user.phone }}</td>
+                    <td>{{ p.user.email }}</td>
+                    <td>{{ p.state }}, {{ p.city }} - {{ p.zip_code }}</td>
+                    <td>{{ p.user.last_login }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="/media/{{ p.license }}" target="_blank" class="btn btn-info btn-sm">Licence</a>
+                            
+                            {% if p.user.is_active %}
+                            <a href="{% url 'admin_change_active_status' id=p.user.id next='pooler' %}" class="btn btn-warning btn-sm">Block</a>
+                            {% else %}
+                            <a href="{% url 'admin_change_active_status' id=p.user.id next='pooler' %}" class="btn btn-success btn-sm">Unblock</a>
+                            {% endif %}
+                                
+                            <a href="{% url 'admin_delete_user' id=p.user.id next='pooler' %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+      </table>
+    </div>
+</div>
+{% endblock main %}
+    

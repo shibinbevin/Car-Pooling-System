@@ -1,0 +1,56 @@
+{% extends 'admin/shared/base.html' %}
+
+{% block main %}
+
+    <div class="row bg-light shadow rounded">
+        <div class="col-12" style="overflow: scroll;">
+            <h2>List of Rides</h2>
+            <hr>
+            <table class="table table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Pooler</th>
+                    <th>Car</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Gender Preference</th>
+                    <th>Price</th>
+                    <th>Creadted On</th>
+                    <th>Status</th>
+                </tr>                  
+                {% for data in datas %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ data.car.owner.user }}</td>
+                        <td>{{ data.car }}</td>
+                        <td>{{ data.origin }}({{ data.departure_time }})</td>
+                        <td>{{ data.destination }}({{ data.estimated_reaching_time }})</td>
+                        <td>
+                            
+                            {% if data.gender_preference == 0 %}
+                                Male Only
+                            {% elif data.gender_preference == 1 %}
+                                Female Only
+                            {% else %}
+                                No Preference
+                            {% endif %}
+                                
+                        </td>
+                        <td>{{ data.price }}</td>
+                        <td>{{ data.created_on }}</td>
+                        <td>
+                            
+                            {% if data.is_completed %}
+                                Completed
+                            {% else %}
+                                Not Competed
+                            {% endif %}
+                                
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

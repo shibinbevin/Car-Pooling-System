@@ -1,0 +1,41 @@
+{% extends 'user/shared/base.html' %}
+
+{% block main %}
+    <div class="row my-5 p-5 bg-light shadow rounded">
+        <div class="col-12">
+            <h2>Upcoming Journey</h2>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>FROM</th>
+                        <th>TO</th>
+                        <th>SEAT</th>
+                        <th>TOTAL KM</th>
+                        <th>AMOUNT</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ booking.source }}</td>
+                            <td>{{ booking.destination }}</td>
+                            <td><span class="badge bg-warning text-uppercase text-dark">{{ booking.seat }}</span></td>
+                            <td>{{ booking.total_km }}</td>
+                            <td>{{ booking.amount }}</td>
+                            <td>
+                                <a href="{% url 'user_ride_info' id=booking.ride_id %}?next=upcoming" class="btn btn-info">View More</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

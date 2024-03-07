@@ -1,0 +1,45 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+    <h1 class="text-white">Trip History</h1>
+    <hr>
+    
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Departure Time</th>
+                        <th>Description</th>
+                        <th>Amount/km</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ data.ride.origin }}</td>
+                        <td>{{ data.ride.destination }}</td>
+                        <td>{{ data.ride.departure_time }}</td>
+                        <td>{{ data.ride.description }}</td>
+                        <td>₹ {{ data.ride.price }} /-</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'pooler_view_route' id=data.ride.id %}?next=history" class="btn btn-info btn-sm"><i class="bi bi-eye-fill"></i></a>
+                                <a href="{% url 'pooler_user_details' id=data.user.id %}?next=history" class="btn btn-success btn-sm"><i class="bi bi-people-fill"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock main %}
+    

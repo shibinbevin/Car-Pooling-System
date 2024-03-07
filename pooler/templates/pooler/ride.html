@@ -1,0 +1,52 @@
+{% extends 'pooler/shared/base.html' %}
+
+{% block main %}
+    <div class="row my-5 p-5 bg-light shadow rounded">
+        <div class="col-12">
+            <h2>Ride Details</h2>
+            <hr>
+            <div class="card my-3" style="width: 100%;">
+                <div class="row no-gutters">
+                    <div class="col-sm-4">
+                        <img class="card-img" src="/media/{{ ride.car.image }}" alt="Suresh Dasari Card">
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>From : {{ ride.origin }}</h5>
+                                    <p>Departure : {{ride.departure_time}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5>To : {{ ride.destination }}</h5>
+                                    <p>Estimated : {{ride.estimated_reaching_time}}</p>
+                                </div>
+                                <hr>
+                                <div class="col-12">
+                                    <code>Routes: <a href="{% url 'pooler_view_route' id=ride.id %}" target="_blank">View Routes</a></code><br>
+                                    <span>Gender Preference : 
+                                        
+                                        {% if ride.gender_preference == 0 %}
+                                            Male Only
+                                        {% elif ride.gender_preference == 1 %}
+                                            Female Only
+                                        {% else %}
+                                            No Preference
+                                        {% endif %}
+                                            
+                                    </span><br>
+                                    <h2>{{ ride.price }} / km</h2>
+                                    <p>Description : {{ ride.description }}</p>
+                                </div>
+                                <div class="col-12 my-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a class="btn btn-secondary" href="{% url 'user_user_booking' %}">Back</a>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+    
